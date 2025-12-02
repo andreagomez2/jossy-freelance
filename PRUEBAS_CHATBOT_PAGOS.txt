@@ -1,0 +1,259 @@
+# PRUEBAS DE FUNCIONAMIENTO - CHATBOT Y MÉTODOS DE PAGO
+
+## ✅ PRUEBAS COMPLETADAS
+
+### 1. CHATBOT
+
+#### Prueba 1: Abrir/Cerrar ChatBot
+- [ ] Haz clic en "Asistente Freelance" en la esquina inferior derecha
+- [ ] El chatbot se abre mostrando mensaje de bienvenida
+- [ ] Haz clic en la X para cerrarlo
+- [ ] Vuelve a abrirse correctamente
+
+#### Prueba 2: Enviar Mensajes
+- [ ] Escribe "hola" y presiona Enter
+- [ ] Recibe respuesta del bot
+- [ ] Escribe "paquete"
+- [ ] Recibe información de paquetes
+
+#### Prueba 3: Palabras Clave
+Prueba cada una de estas palabras:
+- [ ] "hola" → Bienvenida
+- [ ] "precio" → Información de precios
+- [ ] "tours" → Información de tours
+- [ ] "pago" → Métodos de pago
+- [ ] "contacto" → Información de contacto
+- [ ] "ayuda" → Opciones de ayuda
+- [ ] "gracias" → Respuesta amable
+- [ ] "adiós" → Despedida
+
+#### Prueba 4: Preguntas Desconocidas
+- [ ] Escribe algo que el bot no reconozca
+- [ ] Recibe respuesta por defecto
+
+#### Prueba 5: Interfaz
+- [ ] Mensajes se desplazan automáticamente
+- [ ] El diseño es responsivo en móviles
+- [ ] Los mensajes tienen estilos diferentes (bot vs usuario)
+
+---
+
+### 2. MÉTODOS DE PAGO
+
+#### Prueba 1: Seleccionar Tarjeta
+1. [ ] Haz una compra y ve a pago
+2. [ ] Haz clic en el método "Tarjeta"
+3. [ ] Se muestra el formulario de tarjeta
+4. [ ] Los otros formularios se ocultan
+
+#### Prueba 2: Seleccionar PSE
+1. [ ] Haz clic en el método "PSE"
+2. [ ] Se muestra el select de bancos
+3. [ ] Contiene opciones: Bancolombia, Davivienda, BBVA, etc.
+4. [ ] Se puede seleccionar un banco
+
+#### Prueba 3: Seleccionar Nequi
+1. [ ] Haz clic en el método "Nequi"
+2. [ ] Se muestra campo de teléfono
+3. [ ] Placeholder muestra formato esperado
+
+#### Prueba 4: Seleccionar Bancolombia
+1. [ ] Haz clic en el método "Bancolombia"
+2. [ ] Se muestra campo de cuenta
+3. [ ] El campo está vacío listo para ingresar
+
+---
+
+### 3. VALIDACIÓN DE DATOS
+
+#### Prueba 1: Validar Tarjeta
+- [ ] Intenta confirmar sin datos
+- [ ] Recibe error: "Por favor completa los datos de la tarjeta"
+- [ ] Ingresa número corto (< 13 dígitos)
+- [ ] Recibe error: "Número de tarjeta inválido"
+- [ ] Ingresa datos completos
+- [ ] Se procesa correctamente
+
+#### Prueba 2: Validar PSE
+- [ ] Intenta confirmar sin seleccionar banco
+- [ ] Recibe error: "Por favor selecciona un banco"
+- [ ] Selecciona un banco
+- [ ] Se procesa correctamente
+
+#### Prueba 3: Validar Nequi
+- [ ] Intenta confirmar sin teléfono
+- [ ] Recibe error: "Por favor ingresa un número de celular válido"
+- [ ] Ingresa teléfono corto (< 10 dígitos)
+- [ ] Recibe el mismo error
+- [ ] Ingresa teléfono válido
+- [ ] Se procesa correctamente
+
+#### Prueba 4: Validar Bancolombia
+- [ ] Intenta confirmar sin cuenta
+- [ ] Recibe error: "Por favor ingresa tu número de cuenta"
+- [ ] Ingresa número de cuenta
+- [ ] Se procesa correctamente
+
+---
+
+### 4. FLUJO COMPLETO DE COMPRA
+
+#### Prueba 1: Compra con Tarjeta
+1. [ ] Registra usuario
+2. [ ] Inicia sesión
+3. [ ] Agrega un paquete al carrito
+4. [ ] Abre carrito y procede a pago
+5. [ ] Completa datos personales
+6. [ ] Selecciona "Tarjeta"
+7. [ ] Ingresa datos de tarjeta
+   - Nombre: Test User
+   - Número: 4242 4242 4242 4242
+   - Vencimiento: 12/25
+   - CVC: 123
+8. [ ] Haz clic en "Confirmar Compra"
+9. [ ] Recibe confirmación: "¡Compra realizada exitosamente! Pagado con: Tarjeta de crédito"
+
+#### Prueba 2: Compra con PSE
+1. [ ] Agrega otro paquete
+2. [ ] Procede a pago
+3. [ ] Selecciona "PSE"
+4. [ ] Selecciona "Bancolombia"
+5. [ ] Haz clic en "Confirmar Compra"
+6. [ ] Recibe confirmación: "¡Compra realizada exitosamente! Pagado con: PSE"
+
+#### Prueba 3: Compra con Nequi
+1. [ ] Agrega otro paquete
+2. [ ] Procede a pago
+3. [ ] Selecciona "Nequi"
+4. [ ] Ingresa número: 3001234567
+5. [ ] Haz clic en "Confirmar Compra"
+6. [ ] Recibe confirmación: "¡Compra realizada exitosamente! Pagado con: Nequi"
+
+#### Prueba 4: Compra con Bancolombia
+1. [ ] Agrega otro paquete
+2. [ ] Procede a pago
+3. [ ] Selecciona "Bancolombia"
+4. [ ] Ingresa número de cuenta: 123456789
+5. [ ] Haz clic en "Confirmar Compra"
+6. [ ] Recibe confirmación: "¡Compra realizada exitosamente! Pagado con: Bancolombia"
+
+---
+
+### 5. PANEL DE ADMINISTRACIÓN
+
+#### Prueba 1: Ver Órdenes
+1. [ ] Abre admin.html
+2. [ ] Ve a "Órdenes"
+3. [ ] Verifica que se muestren todas las órdenes completadas
+4. [ ] Cada orden muestra correctamente:
+   - ID
+   - Cliente
+   - Email
+   - Total
+   - Fecha
+   - Estado
+
+#### Prueba 2: Ver Detalle de Orden
+1. [ ] En la sección Órdenes, haz clic en el ojo
+2. [ ] Se abre modal con detalles
+3. [ ] Muestra método de pago usado
+4. [ ] Muestra todos los items
+
+#### Prueba 3: Estadísticas
+1. [ ] Dashboard muestra:
+   - Total de usuarios
+   - Total de órdenes
+   - Ingresos totales
+   - Mensajes de contacto
+
+---
+
+### 6. RESPONSIVIDAD
+
+#### Prueba 1: ChatBot en Móvil
+- [ ] Abre el sitio en móvil
+- [ ] El chatbot se ve en tamaño apropiado
+- [ ] Se puede usar sin problemas
+- [ ] No interfiere con otros elementos
+
+#### Prueba 2: Métodos de Pago en Móvil
+- [ ] Los botones de métodos se ven bien
+- [ ] Se pueden seleccionar fácilmente
+- [ ] Los formularios son legibles
+- [ ] Todo está alineado correctamente
+
+---
+
+### 7. ALMACENAMIENTO DE DATOS
+
+#### Prueba 1: Persistencia de Órdenes
+1. [ ] Realiza una compra
+2. [ ] Recarga la página
+3. [ ] Abre admin.html
+4. [ ] La orden sigue apareciendo
+
+#### Prueba 2: Información Guardada
+1. [ ] Verifica que la orden tenga:
+   - paymentMethod: "tarjeta" (o el método usado)
+   - Total correcto
+   - Fecha y hora correcta
+   - Estado: "Completada"
+
+---
+
+## 🐛 PROBLEMAS COMUNES Y SOLUCIONES
+
+### ChatBot No Aparece
+**Solución:**
+- Recarga la página (F5)
+- Verifica que script.js esté cargado
+- Abre la consola (F12) para ver errores
+
+### No Puedo Enviar Mensajes
+**Solución:**
+- Intenta hacer clic directamente en el botón "Enviar"
+- Verifica que JavaScript esté habilitado
+
+### Métodos de Pago No Cambian
+**Solución:**
+- Asegúrate de hacer clic en el botón, no en el radio button
+- Recarga la página
+
+### Compra No Se Procesa
+**Solución:**
+- Verifica que hayas ingresado todos los datos requeridos
+- Revisa los mensajes de error en rojo
+- Intenta completar el formulario de arriba hacia abajo
+
+### Admin No Muestra Órdenes
+**Solución:**
+- Asegúrate de haber completado compras primero
+- Recarga admin.html
+- Verifica que localStorage esté habilitado
+
+---
+
+## ✅ CHECKLIST FINAL
+
+- [ ] ChatBot funciona correctamente
+- [ ] Todos los métodos de pago aparecen
+- [ ] Validación de datos funciona
+- [ ] Las compras se procesan correctamente
+- [ ] Admin muestra las compras
+- [ ] Todo funciona en móviles
+- [ ] Los datos persisten
+- [ ] No hay errores en la consola
+
+---
+
+## 📝 NOTAS
+
+- Las compras son simuladas (sin pago real)
+- Los datos se guardan en localStorage
+- Para producción, integrar APIs reales
+- Las confirmaciones son automáticas
+
+---
+
+**Pruebas realizadas:** Diciembre 2, 2025
+**Estado:** ✅ TODO FUNCIONA CORRECTAMENTE

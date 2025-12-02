@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Freelance Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            overflow-y: auto;
+        }
+        .sidebar .nav-link {
+            color: #fff;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left-color: #ffc107;
+            color: #ffc107;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card h6 {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .table-wrapper {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .badge-success {
+            background-color: #28a745;
+        }
+        .badge-pending {
+            background-color: #ffc107;
+            color: #333;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="p-3 text-center border-bottom">
+            <h5 class="text-warning mb-0">
+                <i class="fas fa-globe"></i> FREELANCE
+            </h5>
+            <small class="text-muted">Panel Administrativo</small>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#dashboard" data-section="dashboard">
+                    <i class="fas fa-dashboard"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#users" data-section="users">
+                    <i class="fas fa-users"></i> Usuarios
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#orders" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i> Órdenes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#contacts" data-section="contacts">
+                    <i class="fas fa-envelope"></i> Contactos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#reports" data-section="reports">
+                    <i class="fas fa-chart-bar"></i> Reportes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="exportAllData()">
+                    <i class="fas fa-download"></i> Exportar Datos
+                </a>
+            </li>
+            <li class="nav-item border-top mt-3 pt-3">
+                <a class="nav-link text-danger" href="index.html">
+                    <i class="fas fa-arrow-left"></i> Volver al Sitio
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-dark">Panel de Administración</h1>
+            <div>
+                <span class="text-muted" id="currentTime"></span>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section-content">
+            <h3 class="mb-4 text-primary">Dashboard</h3>
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <h6>Usuarios Registrados</h6>
+                        <div class="number" id="totalUsers">0</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <h6>Órdenes Completadas</h6>
+                        <div class="number" id="totalOrders">0</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <h6>Ingresos Totales</h6>
+                        <div class="number" id="totalRevenue">$0</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <h6>Mensajes de Contacto</h6>
+                        <div class="number" id="totalContacts">0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="users" class="section-content" style="display: none;">
+            <h3 class="mb-4 text-primary">Gestión de Usuarios</h3>
+            <div class="table-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Fecha Registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <tr><td colspan="5" class="text-center text-muted">Cargando datos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders" class="section-content" style="display: none;">
+            <h3 class="mb-4 text-primary">Gestión de Órdenes</h3>
+            <div class="table-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID Orden</th>
+                            <th>Cliente</th>
+                            <th>Email</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr><td colspan="7" class="text-center text-muted">Cargando datos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section id="contacts" class="section-content" style="display: none;">
+            <h3 class="mb-4 text-primary">Mensajes de Contacto</h3>
+            <div class="table-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Asunto</th>
+                            <th>Teléfono</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contactsTableBody">
+                        <tr><td colspan="6" class="text-center text-muted">Cargando datos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports" class="section-content" style="display: none;">
+            <h3 class="mb-4 text-primary">Reportes</h3>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="table-wrapper">
+                        <h5 class="mb-3">Paquetes Más Vendidos</h5>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Paquete</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topPackages">
+                                <tr><td colspan="2" class="text-center text-muted">Sin datos</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="table-wrapper">
+                        <h5 class="mb-3">Tours Extras Más Solicitados</h5>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Tour</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topExtras">
+                                <tr><td colspan="2" class="text-center text-muted">Sin datos</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal para ver detalles de orden -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Detalles de la Orden</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="orderDetailContent">
+                    <!-- Contenido dinámico -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para ver mensaje de contacto -->
+    <div class="modal fade" id="contactDetailModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Detalles del Mensaje</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="contactDetailContent">
+                    <!-- Contenido dinámico -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let users = [];
+        let orders = [];
+        let contacts = [];
+
+        // Cargar datos
+        function loadData() {
+            users = JSON.parse(localStorage.getItem('users')) || [];
+            orders = JSON.parse(localStorage.getItem('orders')) || [];
+            contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            updateDashboard();
+            setupNavigation();
+            updateTime();
+            setInterval(updateTime, 1000);
+        });
+
+        function updateTime() {
+            const now = new Date().toLocaleString('es-ES');
+            document.getElementById('currentTime').textContent = now;
+        }
+
+        function updateDashboard() {
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('totalRevenue').textContent = '$' + getTotalRevenue().toFixed(2);
+            document.getElementById('totalContacts').textContent = contacts.length;
+        }
+
+        function getTotalRevenue() {
+            return orders.reduce((sum, order) => sum + parseFloat(order.total || 0), 0);
+        }
+
+        function setupNavigation() {
+            document.querySelectorAll('[data-section]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.dataset.section;
+                    
+                    // Cambiar sección activa
+                    document.querySelectorAll('.section-content').forEach(s => s.style.display = 'none');
+                    document.getElementById(section).style.display = 'block';
+                    
+                    // Cambiar nav link activo
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Cargar datos específicos
+                    if (section === 'users') loadUsers();
+                    if (section === 'orders') loadOrders();
+                    if (section === 'contacts') loadContacts();
+                    if (section === 'reports') loadReports();
+                });
+            });
+        }
+
+        function loadUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No hay usuarios registrados</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.registeredDate || 'N/A'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewUserDetails(${user.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No hay órdenes registradas</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td>#${order.id}</td>
+                    <td>${order.name}</td>
+                    <td>${order.email}</td>
+                    <td>$${order.total}</td>
+                    <td>${order.date}</td>
+                    <td><span class="badge badge-success">${order.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewOrderDetails(${order.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadContacts() {
+            const tbody = document.getElementById('contactsTableBody');
+            if (contacts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No hay mensajes de contacto</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = contacts.map(contact => `
+                <tr>
+                    <td>${contact.nombre}</td>
+                    <td>${contact.email}</td>
+                    <td>${contact.asunto}</td>
+                    <td>${contact.telefono}</td>
+                    <td>${contact.fecha}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewContactDetails(${contact.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadReports() {
+            loadTopPackages();
+            loadTopExtras();
+        }
+
+        function loadTopPackages() {
+            const packages = {};
+            orders.forEach(order => {
+                order.items.forEach(item => {
+                    if (!item.name.includes('+')) {
+                        packages[item.name] = (packages[item.name] || 0) + 1;
+                    }
+                });
+            });
+
+            const sorted = Object.entries(packages).sort((a, b) => b[1] - a[1]);
+            const tbody = document.getElementById('topPackages');
+            
+            if (sorted.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2" class="text-center text-muted">Sin datos</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = sorted.map(([name, count]) => `
+                <tr>
+                    <td>${name}</td>
+                    <td><span class="badge bg-primary">${count}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function loadTopExtras() {
+            const extras = {};
+            orders.forEach(order => {
+                order.items.forEach(item => {
+                    if (item.name.includes('Buceo') || item.name.includes('Senderismo') || 
+                        item.name.includes('Tour') || item.name.includes('Spa')) {
+                        extras[item.name] = (extras[item.name] || 0) + 1;
+                    }
+                });
+            });
+
+            const sorted = Object.entries(extras).sort((a, b) => b[1] - a[1]);
+            const tbody = document.getElementById('topExtras');
+            
+            if (sorted.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="2" class="text-center text-muted">Sin datos</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = sorted.map(([name, count]) => `
+                <tr>
+                    <td>${name}</td>
+                    <td><span class="badge bg-warning">${count}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+
+            const content = document.getElementById('orderDetailContent');
+            content.innerHTML = `
+                <div class="mb-3">
+                    <h6 class="text-dark fw-bold">Orden #${order.id}</h6>
+                    <p><strong>Cliente:</strong> ${order.name}</p>
+                    <p><strong>Email:</strong> ${order.email}</p>
+                    <p><strong>Teléfono:</strong> ${order.phone}</p>
+                    <p><strong>Fecha:</strong> ${order.date}</p>
+                    <p><strong>Estado:</strong> <span class="badge bg-success">${order.status}</span></p>
+                </div>
+                <h6 class="text-dark fw-bold mb-2">Items Comprados</h6>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${order.items.map(item => `
+                            <tr>
+                                <td>${item.name}</td>
+                                <td>$${item.price}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                <h6 class="text-dark fw-bold">Total: $${order.total}</h6>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('orderDetailModal'));
+            modal.show();
+        }
+
+        function viewContactDetails(contactId) {
+            const contact = contacts.find(c => c.id === contactId);
+            if (!contact) return;
+
+            const content = document.getElementById('contactDetailContent');
+            content.innerHTML = `
+                <div class="mb-3">
+                    <p><strong>Nombre:</strong> ${contact.nombre}</p>
+                    <p><strong>Email:</strong> ${contact.email}</p>
+                    <p><strong>Teléfono:</strong> ${contact.telefono}</p>
+                    <p><strong>Asunto:</strong> ${contact.asunto}</p>
+                    <p><strong>Fecha:</strong> ${contact.fecha}</p>
+                </div>
+                <h6 class="text-dark fw-bold">Mensaje</h6>
+                <p class="bg-light p-3 rounded">${contact.mensaje}</p>
+            `;
+
+            const modal = new bootstrap.Modal(document.getElementById('contactDetailModal'));
+            modal.show();
+        }
+
+        function exportAllData() {
+            loadData();
+            const data = {
+                usuarios: users,
+                órdenes: orders,
+                contactos: contacts,
+                resumen: {
+                    totalUsuarios: users.length,
+                    totalÓrdenes: orders.length,
+                    ingresosTotales: getTotalRevenue().toFixed(2),
+                    totalContactos: contacts.length
+                },
+                fechaExportación: new Date().toLocaleString('es-ES')
+            };
+
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `freelance-admin-${Date.now()}.json`;
+            link.click();
+        }
+    </script>
+</body>
+</html>
