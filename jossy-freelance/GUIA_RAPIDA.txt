@@ -1,0 +1,142 @@
+# Guía Rápida de Inicio - Freelance Travel Agency
+
+## 📁 Archivos del Proyecto
+
+```
+travel freelance/
+├── index.html          (Sitio principal)
+├── admin.html          (Panel de administración)
+├── styles.css          (Estilos CSS)
+├── script.js           (Funcionalidad JavaScript)
+├── README.md           (Documentación completa)
+└── GUIA_RAPIDA.txt    (Este archivo)
+```
+
+## 🚀 Pasos para Comenzar
+
+### 1. Abrir el Sitio
+- Abre el archivo `index.html` en tu navegador web
+- El sitio se abrirá con toda la funcionalidad lista
+
+### 2. Crear una Cuenta
+- Haz clic en "Iniciar Sesión" (esquina superior derecha)
+- Selecciona la pestaña "Registrarse"
+- Completa: Nombre, Email, Contraseña
+- Haz clic en "Registrarse"
+
+### 3. Explorar el Sitio
+- Navega por el menú principal
+- Explora los diferentes servicios
+- Mira el carrusel de imágenes
+- Lee la sección "Quiénes Somos"
+
+### 4. Hacer una Compra
+- Desplázate a "Paquetes"
+- Haz clic en "Comprar Paquete" en cualquier paquete
+- Opcionalmente, agrega Tours Extras
+- Haz clic en el carrito flotante (esquina inferior derecha)
+- Haz clic en "Proceder al Pago"
+- Completa los datos de pago
+- Haz clic en "Confirmar Compra"
+
+### 5. Ver tu Perfil
+- Haz clic en tu nombre (esquina superior derecha)
+- Verás tu información personal e historial de compras
+
+### 6. Panel de Administración
+- Abre `admin.html` en tu navegador
+- Dashboard con estadísticas
+- Gestión de usuarios, órdenes y contactos
+- Ver reportes y exportar datos
+
+## 🎨 Características Visuales
+
+- **Colores**: Azul primario, Blanco, Dorado, Gris oscuro
+- **Tipografía**: Sans-serif (Segoe UI)
+- **Responsive**: Funciona en móviles, tablets y desktop
+- **Animaciones**: Efectos suaves en hover y scroll
+
+## 💾 Datos Guardados
+
+Todos los datos se guardan automáticamente en localStorage:
+- Información de usuarios
+- Carrito de compras
+- Historial de órdenes
+- Mensajes de contacto
+
+## 📧 Formulario de Contacto
+
+- Desplázate a "Contacto"
+- Completa el formulario con tu información
+- Tu mensaje se guardará automáticamente
+
+## 🛠️ Datos de Prueba
+
+Puedes usar estos datos para probar:
+- **Email**: test@example.com
+- **Contraseña**: 123456
+- **Nombre**: Usuario Prueba
+
+## 🔑 Tecnologías
+
+- HTML5
+- CSS3 + Bootstrap 5
+- JavaScript Vanilla
+- LocalStorage
+- Font Awesome (iconos)
+
+## ⚠️ Importante
+
+- Los datos se guardan localmente en tu navegador
+- Si limpias el cache/localStorage, se perderán los datos
+- Para un sitio en producción, necesitarás un backend
+- Las imágenes son de ejemplo de Unsplash
+
+## 📞 Información de Contacto (en el sitio)
+
+- Email: info@freelancetravel.com
+- Teléfono: +1 (555) 123-4567
+- Redes: Facebook, Twitter, Instagram
+
+## 🎯 Funcionalidades Principales
+
+✅ Registro e inicio de sesión
+✅ Catálogo de paquetes de viaje
+✅ Tours y actividades extras
+✅ Carrito de compras
+✅ Sistema de pago
+✅ Formulario de contacto
+✅ Panel de administración
+✅ Historial de compras
+✅ Exportar datos
+✅ Responsive y mobile-friendly
+
+## 🐛 Solución de Problemas
+
+### El sitio no funciona
+- Asegúrate de tener JavaScript habilitado
+- Prueba en otro navegador
+- Borra el cache del navegador
+
+### Los datos no se guardan
+- Verifica que localStorage esté habilitado
+- Comprueba que no tengas modo incógnito
+- Intenta nuevamente con otro navegador
+
+### Las imágenes no cargan
+- Verifica tu conexión a internet
+- Las imágenes están en Unsplash (requiere internet)
+
+## 📝 Notas
+
+- Este es un prototipo front-end de demostración
+- Todos los datos se guardan en el navegador local
+- Para un sitio real, integra con un servidor backend
+- La validación de pagos es simulada
+- No hay integración con pasarelas de pago reales
+
+---
+
+**Versión:** 1.0.0
+**Última actualización:** Diciembre 2025
+**Desarrollador:** Freelance Travel Agency
