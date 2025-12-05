@@ -499,104 +499,54 @@ footer a:hover {
     background: #0052a3;
 }
 
-/* ChatBot Widget */
-.chatbot-widget {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 350px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.2);
-    z-index: 999;
-    overflow: hidden;
-}
-
-.chatbot-header {
-    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
-    color: white;
-    padding: 1rem;
-    cursor: pointer;
+/* Carrito */
+.cart-item {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h6 {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.cart-item-price {
     font-weight: bold;
-    transition: all 0.3s ease;
+    color: #0066cc;
+    font-size: 1.1rem;
 }
 
-.chatbot-header:hover {
-    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
-}
-
-.chatbot-header i:first-child {
-    margin-right: 0.5rem;
-    font-size: 1.2rem;
-}
-
-.chatbot-messages {
-    height: 300px;
-    overflow-y: auto;
-    padding: 1rem;
-    background: #f8f9fa;
-}
-
-.chatbot-message {
-    display: flex;
-    margin-bottom: 1rem;
-    animation: slideInUp 0.3s ease;
-}
-
-.bot-message {
-    justify-content: flex-start;
-}
-
-.user-message {
-    justify-content: flex-end;
-}
-
-.message-content {
-    max-width: 80%;
-    padding: 0.75rem 1rem;
-    border-radius: 10px;
-    word-wrap: break-word;
-    line-height: 1.4;
-    font-size: 0.9rem;
-}
-
-.bot-message .message-content {
-    background: #e9ecef;
-    color: #333;
-}
-
-.user-message .message-content {
-    background: #0066cc;
+.btn-remove {
+    background-color: #dc3545;
     color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.85rem;
 }
 
-.chatbot-input {
-    padding: 1rem;
-    background: white;
-    border-top: 1px solid #ddd;
+.btn-remove:hover {
+    background-color: #c82333;
 }
 
-.chatbot-input input {
-    border: 1px solid #ddd;
+#cartButton {
+    background-color: #0066cc !important;
 }
 
-.chatbot-input input:focus {
-    border-color: #0066cc;
-    box-shadow: 0 0 5px rgba(0, 102, 204, 0.2);
-}
-
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+#cartButton:hover {
+    background-color: #0052a3 !important;
+    transform: scale(1.1);
 }
 
 /* Métodos de Pago */
@@ -641,15 +591,5 @@ footer a:hover {
     }
 }
 
-/* Estilos responsivos para ChatBot */
+/* Estilos responsivos */
 @media (max-width: 576px) {
-    .chatbot-widget {
-        width: calc(100vw - 20px);
-        right: 10px;
-        bottom: 80px;
-    }
-    
-    .message-content {
-        max-width: 90%;
-    }
-}

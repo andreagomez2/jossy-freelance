@@ -461,6 +461,27 @@ function handleCheckout(e) {
     showAlert(`¡Compra realizada exitosamente! Pagado con: ${paymentName}. Tu orden #${order.id} ha sido confirmada. Te enviaremos los detalles a ${order.email}`, 'success');
 }
 
+// Abrir carrito
+function openCart() {
+    displayCart();
+    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+    cartModal.show();
+}
+
+// Agregar botón para abrir carrito (opcional)
+document.addEventListener('DOMContentLoaded', function() {
+    // Crear botón flotante del carrito
+    const cartButton = document.createElement('button');
+    cartButton.id = 'cartButton';
+    cartButton.className = 'btn btn-primary position-fixed';
+    cartButton.style.cssText = 'bottom: 30px; right: 30px; z-index: 999; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);';
+    cartButton.innerHTML = '<i class="fas fa-shopping-cart fa-lg"></i>';
+    cartButton.title = 'Ver carrito';
+    cartButton.onclick = openCart;
+    
+    document.body.appendChild(cartButton);
+});
+
 // ==================== FORMULARIO DE CONTACTO ====================
 function loadContactForm() {
     const contactForm = document.getElementById('contactForm');
@@ -531,26 +552,7 @@ function showAlert(message, type = 'info') {
     }, 5000);
 }
 
-// Abrir carrito
-function openCart() {
-    displayCart();
-    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
-    cartModal.show();
-}
 
-// Agregar botón para abrir carrito (opcional)
-document.addEventListener('DOMContentLoaded', function() {
-    // Crear botón flotante del carrito
-    const cartButton = document.createElement('button');
-    cartButton.id = 'cartButton';
-    cartButton.className = 'btn btn-warning position-fixed';
-    cartButton.style.cssText = 'bottom: 30px; right: 30px; z-index: 999; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);';
-    cartButton.innerHTML = '<i class="fas fa-shopping-cart fa-lg"></i>';
-    cartButton.title = 'Ver carrito';
-    cartButton.onclick = openCart;
-    
-    document.body.appendChild(cartButton);
-});
 
 // Formatear número de tarjeta
 document.addEventListener('DOMContentLoaded', function() {
@@ -703,201 +705,6 @@ function printReceipt() {
     printWindow.document.write(printContent);
     printWindow.document.close();
 }
-
-// ==================== CHATBOT ====================
-// Base de conocimiento más completa y coherente
-const chatbotKnowledge = {
-    saludo: {
-        palabras_clave: ['hola', 'buenos', 'buenas', 'hey', 'qué tal', 'cómo estás', 'hábitat', 'ola'],
-        respuestas: [
-            '¡Hola! 👋 Bienvenido a Freelance Travel. ¿Cómo puedo ayudarte?',
-            '¡Hola! Soy la asistente de Freelance Travel. ¿En qué puedo asistirte?',
-            '¡Bienvenido! Estoy aquí para ayudarte. ¿Qué necesitas saber?'
-        ]
-    },
-    paquetes: {
-        palabras_clave: ['paquete', 'tour', 'viaje', 'aventura', 'oferta', 'planes', 'qué ofreces', 'disponible'],
-        respuestas: [
-            'Tenemos 3 paquetes increíbles:\n🏆 Aventura Básica: $999 - Perfecto para principiantes\n💎 Experiencia Premium: $1,999 - Lo más popular\n👑 Lujo Total: $4,999 - Lujo absoluto\n¿Cuál te interesa?'
-        ]
-    },
-    precio: {
-        palabras_clave: ['precio', 'costo', 'valor', 'cuánto cuesta', 'tarifa', 'cuánto', 'dinero', 'presupuesto'],
-        respuestas: [
-            '💰 Nuestros precios son muy competitivos:\n• Aventura Básica: $999\n• Experiencia Premium: $1,999\n• Lujo Total: $4,999\nTodos incluyen hospedaje, tours y traslados. ¿Cuál se ajusta a tu presupuesto?'
-        ]
-    },
-    tours_detalles: {
-        palabras_clave: ['qué tours', 'qué actividades', 'actividades', 'buceo', 'senderismo', 'gastronomía', 'fotografía', 'spa', 'excursiones'],
-        respuestas: [
-            '🎯 Nuestras actividades incluyen:\n🤿 Buceo en arrecifes\n🥾 Senderismo en montaña\n🍽️ Tours gastronómicos\n📷 Tours fotográficos\n🌙 Tours nocturnos\n🧖 Spa y relajación\n¿Cuál te llama más la atención?'
-        ]
-    },
-    metodos_pago: {
-        palabras_clave: ['pago', 'cómo pago', 'formas pago', 'tarjeta', 'pse', 'nequi', 'bancolombia', 'seguro', 'pagar'],
-        respuestas: [
-            '💳 Aceptamos varios métodos seguros:\n• Tarjeta de crédito/débito (Mastercard, Visa)\n• PSE (transferencia bancaria)\n• Nequi (billetera digital)\n• Bancolombia (transferencia directa)\nTodos tus pagos están protegidos. ¿Cuál prefieres?'
-        ]
-    },
-    contacto: {
-        palabras_clave: ['contacto', 'teléfono', 'correo', 'email', 'cómo contactar', 'dónde', 'llamar', 'dirección'],
-        respuestas: [
-            '📞 Puedes contactarnos:\n📧 Email: info@freelancetravel.com\n☎️ Teléfono: +1 (555) 123-4567\n💬 Chat: Estoy disponible 24/7\n¿Necesitas algo más?'
-        ]
-    },
-    reserva: {
-        palabras_clave: ['reservar', 'reserva', 'cómo reservo', 'quiero viajar', 'contratar', 'agendar', 'booking'],
-        respuestas: [
-            '✨ Para hacer tu reserva:\n1️⃣ Elige tu paquete favorito\n2️⃣ Selecciona tus actividades\n3️⃣ Completa tus datos\n4️⃣ Elige método de pago\n5️⃣ ¡Confirma tu viaje!\n¿Quieres comenzar ahora?'
-        ]
-    },
-    ayuda: {
-        palabras_clave: ['ayuda', 'no entiendo', 'cómo', 'puede ayudar', 'qué haces', 'para qué sirves', 'opciones'],
-        respuestas: [
-            '🤝 Puedo ayudarte con:\n📋 Información sobre paquetes\n💰 Detalles de precios\n🎯 Actividades y tours\n💳 Métodos de pago\n📞 Información de contacto\n🗺️ Consejos de viaje\n¿Hay algo específico que necesites?'
-        ]
-    },
-    gratitud: {
-        palabras_clave: ['gracias', 'thanks', 'de nada', 'excelente', 'perfecto', 'ok', 'bueno'],
-        respuestas: [
-            '¡De nada! 😊 Estoy aquí para ayudarte. ¿Hay algo más que necesites?',
-            '¡Feliz de ayudarte! 👍 ¿Necesitas más información?'
-        ]
-    },
-    despedida: {
-        palabras_clave: ['adiós', 'bye', 'hasta luego', 'chao', 'nos vemos', 'adios', 'goodbye', 'ciao'],
-        respuestas: [
-            '¡Hasta luego! 👋 Esperamos verte pronto en Freelance Travel. ¡Que disfrutes el viaje!',
-            '¡Adiós! 🌴 Gracias por visitarnos. ¡Vuelve pronto!'
-        ]
-    },
-    oferta: {
-        palabras_clave: ['descuento', 'promoción', 'oferta', 'especial', 'rebaja'],
-        respuestas: [
-            '🎉 Tenemos promociones especiales:\n🔥 Descuento 10% en paquetes Premium\n🌟 Gratis tour de spa en Lujo Total\n📅 Válido hasta fin de mes\n¿Te interesa alguna?'
-        ]
-    },
-    grupo: {
-        palabras_clave: ['grupo', 'familia', 'amigos', 'cuántos', 'personas', 'múltiple'],
-        respuestas: [
-            '👥 ¡Perfecto para grupos!\nOfrecemos descuentos por:\n• Grupos de 4+ personas: 5% descuento\n• Familias: 8% descuento\n• Despedidas de soltero/a: 10% descuento\nContacta para más detalles: info@freelancetravel.com'
-        ]
-    },
-    fechas: {
-        palabras_clave: ['cuándo', 'fecha', 'disponible', 'próximo', 'salida', 'cuándo puedo', 'cuántos días'],
-        respuestas: [
-            '📅 Viajes disponibles:\n• Salidas cada semana\n• Paquetes de 3-7 días\n• Fechas personalizadas disponibles\n¿Qué fechas te interesan? Contacta a info@freelancetravel.com'
-        ]
-    },
-    clima: {
-        palabras_clave: ['clima', 'lluvia', 'templado', 'calor', 'frío', 'qué llevar', 'ropa'],
-        respuestas: [
-            '☀️ El clima es tropical:\n• Temperatura: 25-30°C\n• Humedad: Media-alta\n• Estación seca: Diciembre-Abril\n💡 Recomendaciones:\n📦 Protector solar\n🩱 Ropa ligera\n👟 Zapatos cómodos\n¿Más consejos?'
-        ]
-    },
-    certificados: {
-        palabras_clave: ['certificado', 'licencia', 'seguro', 'autorizado', 'legal'],
-        respuestas: [
-            '✅ Estamos completamente legales:\n🏆 Certificados de turismo\n🛡️ Seguros viajeros incluidos\n✔️ Todas las actividades aseguradas\n¡Tu seguridad es nuestra prioridad!'
-        ]
-    }
-};
-
-// Función mejorada para obtener respuesta coherente
-function getBotResponse(userMessage) {
-    const message = userMessage.toLowerCase().trim();
-    
-    // Buscar coincidencia en la base de conocimiento
-    for (const [categoria, datos] of Object.entries(chatbotKnowledge)) {
-        for (const palabra of datos.palabras_clave) {
-            if (message.includes(palabra)) {
-                // Retornar respuesta aleatoria de esa categoría
-                const respuestas = datos.respuestas;
-                return respuestas[Math.floor(Math.random() * respuestas.length)];
-            }
-        }
-    }
-    
-    // Respuestas contextuales inteligentes
-    if (message.length < 3) {
-        return '🤔 Creo que el mensaje es muy corto. ¿Podrías preguntar algo más específico?';
-    }
-    
-    if (message.includes('?')) {
-        return '💭 Excelente pregunta. Aunque no estoy seguro de esa pregunta específica, puedo ayudarte con: paquetes, precios, actividades, métodos de pago o contacto. ¿Hay algo de eso que necesites?';
-    }
-    
-    // Respuesta genérica amigable
-    return '🤖 No estoy completamente seguro sobre eso, pero puedo ayudarte con:\n✓ Información sobre paquetes de viaje\n✓ Precios y ofertas\n✓ Actividades disponibles\n✓ Métodos de pago seguros\n✓ Cómo hacer reservas\n\n¿Hay algo de esto que te interese?';
-}
-
-function toggleChatbot() {
-    const messages = document.getElementById('chatbotMessages');
-    const input = document.getElementById('chatbotInput');
-    const closeBtn = document.getElementById('closeBtn');
-    
-    const isVisible = messages.style.display !== 'none';
-    
-    if (isVisible) {
-        messages.style.display = 'none';
-        input.style.display = 'none';
-        closeBtn.style.display = 'none';
-    } else {
-        messages.style.display = 'block';
-        input.style.display = 'block';
-        closeBtn.style.display = 'block';
-        document.getElementById('userInput').focus();
-        
-        // Mensaje de bienvenida si es la primera vez
-        if (document.getElementById('chatbotMessages').children.length === 0) {
-            addChatMessage('¡Hola! 👋 Soy la asistente de Freelance Travel. ¿Cómo puedo ayudarte?', 'bot');
-        }
-    }
-}
-
-function sendChatMessage() {
-    const input = document.getElementById('userInput');
-    const message = input.value.trim();
-    
-    if (!message) return;
-    
-    // Agregar mensaje del usuario
-    addChatMessage(message, 'user');
-    input.value = '';
-    
-    // Simular respuesta del bot con tiempo variable
-    const delayMs = Math.random() * 500 + 300; // Entre 300-800ms para ser más natural
-    setTimeout(() => {
-        const response = getBotResponse(message);
-        addChatMessage(response, 'bot');
-    }, delayMs);
-}
-
-function addChatMessage(message, type) {
-    const messagesContainer = document.getElementById('chatbotMessages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `chatbot-message ${type}-message`;
-    
-    // Convertir saltos de línea en <br>
-    const formattedMessage = message.replace(/\n/g, '<br>');
-    messageDiv.innerHTML = `<div class="message-content">${formattedMessage}</div>`;
-    messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-}
-
-// Permitir enviar mensaje con Enter
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        const userInput = document.getElementById('userInput');
-        if (userInput) {
-            userInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendChatMessage();
-                }
-            });
-        }
-    }, 1000);
-});
 
 // ==================== MÉTODOS DE PAGO ====================
 let selectedPaymentMethod = 'tarjeta';
